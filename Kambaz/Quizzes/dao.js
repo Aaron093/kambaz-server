@@ -1,25 +1,44 @@
-import Database from "../Database/index.js";
-import { v4 as uuidv4 } from "uuid";
-
-export function deleteQuiz(quizId) {
-  const { quizzes } = Database;
-  Database.quizzes = quizzes.filter((quiz) => quiz._id !== quizId);
- } 
-
-export function createQuiz(quiz) {
-  const newQuiz = { ...quiz, _id: uuidv4() };
-  Database.quizzes = [...Database.quizzes, newQuiz];
-  return newQuiz;
-}
+import quizzes from "../Database/quizzes.js";
 
 export function findQuizzesForCourse(courseId) {
-  const { quizzes } = Database;
-  return quizzes.filter((quiz) => quiz.course === courseId);
+    return quizzes.filter((quiz) => quiz.course === courseId);
+}
+
+export function findQuizById(quizId) {
+    return quizzes.find((quiz) => quiz._id === quizId);
+}
+
+export function findAllQuizzes() {
+    return quizzes;
+}
+
+export function createQuiz(quiz) {
+    const newQuiz = {
+        ...quiz,
+        _id: new Date().getTime().toString()
+    };
+    quizzes.push(newQuiz);
+    return newQuiz;
+}
+
+export function deleteQuiz(quizId) {
+    const index = quizzes.findIndex((quiz) => quiz._id === quizId);
+    if (index !== -1) {
+        quizzes.splice(index, 1);
+        return { status: "ok" };
+    }
+    return { status: "not found" };
 }
 
 export function updateQuiz(quizId, quizUpdates) {
-  const { quizzes } = Database;
-  const quiz = quizzes.find((quiz) => quiz._id === quizId);
-  Object.assign(quiz, quizUpdates);
-  return quiz;
+    const index = quizzes.findIndex((quiz) => quiz._id === quizId);
+    if (index !== -1) {
+        quizzes[index] = {
+            ...quizzes[index],
+            ...quizUpdates,
+            _id: quizId // Ensure we don't override the ID
+        };
+        return quizzes[index];
+    }
+    return null;
 }

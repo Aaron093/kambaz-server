@@ -1,14 +1,19 @@
 const assignment = {
-  id: 1, title: "NodeJS Assignment",
+  id: 1,
+  title: "NodeJS Assignment",
   description: "Create a NodeJS server with ExpressJS",
-  due: "2021-10-10", completed: false, score: 0,
+  due: "2021-10-10",
+  completed: false,
+  score: 0,
 };
 
 const module = {
-  id: 1, name: "NodeJS Assignment",
-  description: "Create a NodeJS server with ExpressJS",
-  course:"RS101",
+  id: 2,
+  name: "ModuleName",
+  description: "Module Description",
+  course: "2024-10-10",
 };
+
 export default function WorkingWithObjects(app) {
   app.get("/lab5/assignment", (req, res) => {
     res.json(assignment);
@@ -24,6 +29,18 @@ export default function WorkingWithObjects(app) {
     res.json(assignment);
   });
 
+  app.get("/lab5/assignment/score/:newScore", (req, res) => {
+    const { newScore } = req.params;
+    assignment.score = newScore;
+    res.json(assignment);
+  });
+
+  app.get("/lab5/assignment/completed/:newCompleted", (req, res) => {
+    const { newCompleted } = req.params;
+    assignment.completed = newCompleted;
+    res.json(assignment);
+  });
+
   app.get("/lab5/module", (req, res) => {
     res.json(module);
   });
@@ -32,11 +49,15 @@ export default function WorkingWithObjects(app) {
     res.json(module.name);
   });
 
-  app.get("/lab5/module/name/:newTitle", (req, res) => {
+  app.get("/lab5/module/name/:newName", (req, res) => {
     const { newName } = req.params;
     module.name = newName;
     res.json(module);
   });
 
-
-};
+  app.get("/lab5/module/description/:newDescription", (req, res) => {
+    const { newDescription } = req.params;
+    module.description = newDescription;
+    res.json(module);
+  });
+}
