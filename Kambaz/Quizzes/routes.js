@@ -61,7 +61,6 @@ export default function QuizzesRoutes(app) {
     }
   });
 
-  // Questions
   app.get("/api/quizzes/:quizId/questions", async (req, res) => {
     try {
       const { quizId } = req.params;

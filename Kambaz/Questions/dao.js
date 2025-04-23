@@ -5,19 +5,15 @@ export function findQuestionsForQuiz(quizId) {
 }
 
 export function createQuestion(question) {
-  // Generate a new ID (you might want to use a more sophisticated ID generation)
   const newId = Date.now().toString();
-  
-  // Create new question object with the generated ID
+
   const newQuestion = {
     ...question,
     _id: newId
   };
-  
-  // Add to questions array
+
   questions.push(newQuestion);
   
-  // Return the newly created question
   return newQuestion;
 }
 
@@ -36,7 +32,6 @@ export function updateQuestion(questionId, questionUpdates) {
     return null;
   }
   
-  // Preserve the original _id
   const updatedQuestion = {
     ...questions[index],
     ...questionUpdates,

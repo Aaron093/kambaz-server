@@ -36,7 +36,7 @@ export function updateQuiz(quizId, quizUpdates) {
         quizzes[index] = {
             ...quizzes[index],
             ...quizUpdates,
-            _id: quizId // Ensure we don't override the ID
+            _id: quizId 
         };
         return quizzes[index];
     }

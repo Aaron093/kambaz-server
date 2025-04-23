@@ -2,7 +2,6 @@ import * as AnswerDao from "./dao.js";
 
 export default function AnswersRoutes(app) {
 
-  //Create answers for quiz
   app.post("/api/quizzes/:quizId/answers/:userId", async (req, res) => {
     const { quizId, userId } = req.params;
     const answer = {
@@ -15,7 +14,6 @@ export default function AnswersRoutes(app) {
     res.status(201).json(createdAnswer);
   });
   
-  //Get answers by quizID, should prob change for by user and quiz
   app.get("/api/quizzes/:quizId/answers", async (req, res) => {
     const { quizId } = req.params;
     const answers = await AnswerDao.getAnswersByQuizId(quizId);
@@ -28,14 +26,13 @@ export default function AnswersRoutes(app) {
     res.json(answers);
   });
 
-  // Get answer by quiz id and userId
   app.get("/api/quizzes/:quizId/answers/:userId", async (req, res) => {
     const { quizId, userId } = req.params;
     const answers = await AnswerDao.getAnswersByQuizIdAndUserId(quizId, userId);
     res.json(answers);
   });
 
-  //Update answers
+
   app.put("/api/quizzes/answers/:answerId", async (req, res) => {
     const { answerId } = req.params;
     const updatedData = req.body;

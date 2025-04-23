@@ -38,7 +38,6 @@ export default function CourseRoutes(app) {
     res.send(newModule);
   });
 
-  // quizzes
   app.get("/api/courses/:courseId/quizzes", (req, res) => {
     const { courseId } = req.params;
     const quizzes = quizzesDao.findQuizzesForCourse(courseId);
@@ -53,7 +52,6 @@ export default function CourseRoutes(app) {
     };
   });
 
-  // users
   app.get("/api/courses/:courseId/users", (req, res) => {
     const { courseId } = req.params;
     const users = usersDao.findUsersForCourse(courseId);
